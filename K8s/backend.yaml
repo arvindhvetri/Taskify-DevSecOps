@@ -25,7 +25,7 @@ spec:
             - name: uploads
               mountPath: /app/uploads
       volumes:
-        - name: uploads-storage
+        - name: uploads
           persistentVolumeClaim:
             claimName: uploads-pvc
 ---
@@ -44,3 +44,4 @@ spec:
       protocol: TCP
 
       nodePort: 31100
+
