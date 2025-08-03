@@ -5,7 +5,7 @@ metadata:
   namespace: taskify
 spec:
   capacity:
-    storage: 2Gi
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
