@@ -5,9 +5,10 @@ metadata:
   namespace: taskify
 spec:
   capacity:
-    storage: 3Gi
+    storage: 2Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   hostPath:
+
     path: /data/db
