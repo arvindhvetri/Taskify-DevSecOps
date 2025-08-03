@@ -22,7 +22,7 @@ pipeline {
                     writeFile file: 'backend/.env', text: """PORT=8000
 MONGO_URI=mongodb://mongo:27017/taskdb
 JWT_SECRET=${JWT_SECRET}
-ADMIN_INVITE_TOKEN=4588944
+ADMIN_INVITE_TOKEN=123456
 """
                     writeFile file: 'frontend/.env', text: """VITE_BASE_URL=http://${WORKER_NODE_IP}:8000
 """
