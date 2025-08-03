@@ -69,8 +69,11 @@ ADMIN_INVITE_TOKEN=123456
                     sudo kubectl delete -f K8s/frontend.yaml --ignore-not-found
 
                     # Re-Apply Persistent Volumes
-                    sudo kubectl apply -f K8s/pv.yaml
-                    sudo kubectl apply -f K8s/pvc.yaml
+                    sudo kubectl apply -f K8s/mpv.yaml
+                    sudo kubectl apply -f K8s/mpvc.yaml
+
+                    sudo kubectl apply -f K8s/upv.yaml
+                    sudo kubectl apply -f K8s/upvc.yaml
 
                     # Deploy MongoDB, Backend, Frontend
                     sudo kubectl apply -f K8s/mongodb.yaml
