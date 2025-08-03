@@ -25,7 +25,7 @@ JWT_SECRET=${JWT_SECRET}
 ADMIN_INVITE_TOKEN=123456
 """
 
-                    writeFile file: 'frontend/.env', text: """VITE_BASE_URL=http://backend-service:31000
+                    writeFile file: 'frontend/.env', text: """VITE_BASE_URL=http://backend-service:31100
 """
                 }
             }
