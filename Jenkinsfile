@@ -89,7 +89,6 @@ ADMIN_INVITE_TOKEN=123456
                         echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
                         docker push $BACKEND_IMAGE
                         docker push $FRONTEND_IMAGE
-                        docker push $MONGODB_IMAGE
 
                     '''
                 }
