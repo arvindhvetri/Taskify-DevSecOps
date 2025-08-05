@@ -2,15 +2,51 @@ pipeline {
     agent { label 'Tasky-Build-Master' }
 
     environment {
-        BACKEND_IMAGE = 'arvindh01/backend-taskify:latest'
-        FRONTEND_IMAGE = 'arvindh01/frontend-taskify:latest'
+        SONAR_HOME = tool "Sonar"
+        BACKEND_IMAGE = 'arvindh01/k8s-backend-taskify:latest'
+        FRONTEND_IMAGE = 'arvindh01/k8s-frontend-taskify:latest'
         KUBE_NAMESPACE = 'taskify'
+        WORKER_NODE_IP = '3.128.94.230'
     }
 
     stages {
+
         stage('Clone Code from GitHub') {
             steps {
                 git branch: 'K8s', url: 'https://github.com/arvindhvetri/Taskify-DevSecOps.git'
+            }
+        }
+
+        stage('SonarQube Quality Analysis') {
+            steps {
+                withSonarQubeEnv("Sonar") {
+                    sh '''
+                        $SONAR_HOME/bin/sonar-scanner \
+                        -Dsonar.projectName=taskify \
+                        -Dsonar.projectKey=taskify
+                    '''
+                }
+            }
+        }
+
+        stage('OWASP Dependency Check') {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'Depcheck'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+
+        stage('Sonar Quality Gate Check') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
+
+        stage('Trivy Filesystem Scan') {
+            steps {
+                sh 'trivy fs --format table -o trivy-fs-report.html .'
             }
         }
 
@@ -25,7 +61,7 @@ JWT_SECRET=${JWT_SECRET}
 ADMIN_INVITE_TOKEN=123456
 """
 
-                    writeFile file: 'frontend/Task-Manager/.env', text: """VITE_BASE_URL=http://3.144.250.154:31100
+                    writeFile file: 'frontend/Task-Manager/.env', text: """VITE_BASE_URL=http://${WORKER_NODE_IP}:31100
 """
                 }
             }
