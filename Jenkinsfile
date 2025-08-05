@@ -97,38 +97,42 @@ ADMIN_INVITE_TOKEN=123456
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                   echo "Checking if namespace '$KUBE_NAMESPACE' exists..."
+                   echo "🔍 Checking if namespace '$KUBE_NAMESPACE' exists..."
                     if ! kubectl get namespace $KUBE_NAMESPACE > /dev/null 2>&1; then
                         echo "⚙️ Namespace '$KUBE_NAMESPACE' not found. Creating..."
                         kubectl create namespace $KUBE_NAMESPACE
                     else
-                        echo "Namespace '$KUBE_NAMESPACE' already exists."
+                        echo "✅ Namespace '$KUBE_NAMESPACE' already exists."
                     fi
-        
-                    echo "🗑Cleaning up previous deployments (if any)..."
-                    kubectl delete -f K8s/mongodb.yaml --namespace=$KUBE_NAMESPACE --ignore-not-found
-                    kubectl delete -f K8s/backend.yaml --namespace=$KUBE_NAMESPACE --ignore-not-found
-                    kubectl delete -f K8s/frontend.yaml --namespace=$KUBE_NAMESPACE --ignore-not-found
-        
-                    echo "Applying Persistent Volumes..."
-                    kubectl apply -f K8s/mpv.yaml      # PVs are cluster-scoped
+                    
+                    echo "🔄 Setting default namespace to '$KUBE_NAMESPACE' in current context..."
+                    kubectl config set-context --current --namespace=$KUBE_NAMESPACE
+                    
+                    echo "🗑 Cleaning up previous deployments (if any)..."
+                    kubectl delete -f K8s/mongodb.yaml --ignore-not-found
+                    kubectl delete -f K8s/backend.yaml --ignore-not-found
+                    kubectl delete -f K8s/frontend.yaml --ignore-not-found
+                    
+                    echo "📦 Applying Persistent Volumes (Cluster-Scoped)..."
+                    kubectl apply -f K8s/mpv.yaml
                     kubectl apply -f K8s/upv.yaml
-        
-                    echo "Applying Persistent Volume Claims to namespace '$KUBE_NAMESPACE'..."
-                    kubectl apply -f K8s/mpvc.yaml --namespace=$KUBE_NAMESPACE
-                    kubectl apply -f K8s/upvc.yaml --namespace=$KUBE_NAMESPACE
-        
-                    echo "Deploying MongoDB, Backend, Frontend to namespace '$KUBE_NAMESPACE'..."
-                    kubectl apply -f K8s/mongodb.yaml --namespace=$KUBE_NAMESPACE
-                    kubectl apply -f K8s/backend.yaml --namespace=$KUBE_NAMESPACE
-                    kubectl apply -f K8s/frontend.yaml --namespace=$KUBE_NAMESPACE
-        
-                    echo "Waiting for all Pods to be Ready..."
-                    kubectl rollout status deployment/backend-deployment -n $KUBE_NAMESPACE
-                    kubectl rollout status deployment/frontend-deployment -n $KUBE_NAMESPACE
-                    kubectl rollout status deployment/mongo-deployment -n $KUBE_NAMESPACE
-        
-                    echo "Kubernetes Deployment Successful!"
+                    
+                    echo "📦 Applying Persistent Volume Claims..."
+                    kubectl apply -f K8s/mpvc.yaml
+                    kubectl apply -f K8s/upvc.yaml
+                    
+                    echo "🚀 Deploying MongoDB, Backend, Frontend..."
+                    kubectl apply -f K8s/mongodb.yaml
+                    kubectl apply -f K8s/backend.yaml
+                    kubectl apply -f K8s/frontend.yaml
+                    
+                    echo "⏳ Waiting for all Pods to be Ready..."
+                    kubectl rollout status deployment/backend-deployment
+                    kubectl rollout status deployment/frontend-deployment
+                    kubectl rollout status deployment/mongo-deployment
+                    
+                    echo "✅ Kubernetes Deployment Successful!"
+
                 '''
             }
         }
