@@ -56,7 +56,7 @@ pipeline {
                     string(credentialsId: 'jwt-secret', variable: 'JWT_SECRET')
                 ]) {
                     writeFile file: 'backend/.env', text: """PORT=8000
-MONGO_URI=mongodb://mongo:27017/taskdb
+MONGO_URI=mongodb://mongo-service:27017/taskdb
 JWT_SECRET=${JWT_SECRET}
 ADMIN_INVITE_TOKEN=123456
 """
