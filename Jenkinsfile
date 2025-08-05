@@ -6,7 +6,7 @@ pipeline {
         BACKEND_IMAGE = 'arvindh01/k8s-backend-taskify:latest'
         FRONTEND_IMAGE = 'arvindh01/k8s-frontend-taskify:latest'
         KUBE_NAMESPACE = 'taskify'
-        WORKER_NODE_IP = '52.14.18.176'
+        WORKER_NODE_IP = '52.14.18.176' // k8s slave machine ip
     }
 
     stages {
