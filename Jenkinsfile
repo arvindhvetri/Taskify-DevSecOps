@@ -100,26 +100,26 @@ ADMIN_INVITE_TOKEN=123456
                     echo "Applying Kubernetes Manifests..."
 
                     # Clean previous deployments
-                    sudo kubectl delete -f K8s/mongodb.yaml --ignore-not-found
-                    sudo kubectl delete -f K8s/backend.yaml --ignore-not-found
-                    sudo kubectl delete -f K8s/frontend.yaml --ignore-not-found
+                    kubectl delete -f K8s/mongodb.yaml --ignore-not-found
+                    kubectl delete -f K8s/backend.yaml --ignore-not-found
+                    kubectl delete -f K8s/frontend.yaml --ignore-not-found
 
                     # Re-Apply Persistent Volumes
-                    sudo kubectl apply -f K8s/mpv.yaml
-                    sudo kubectl apply -f K8s/mpvc.yaml
+                    kubectl apply -f K8s/mpv.yaml
+                    kubectl apply -f K8s/mpvc.yaml
 
-                    sudo kubectl apply -f K8s/upv.yaml
-                    sudo kubectl apply -f K8s/upvc.yaml
+                    kubectl apply -f K8s/upv.yaml
+                    kubectl apply -f K8s/upvc.yaml
 
                     # Deploy MongoDB, Backend, Frontend
-                    sudo kubectl apply -f K8s/mongodb.yaml
-                    sudo kubectl apply -f K8s/backend.yaml
-                    sudo kubectl apply -f K8s/frontend.yaml
+                    kubectl apply -f K8s/mongodb.yaml
+                    kubectl apply -f K8s/backend.yaml
+                    kubectl apply -f K8s/frontend.yaml
 
                     echo "Waiting for Pods to be Ready..."
-                    sudo kubectl rollout status deployment/backend-deployment -n $KUBE_NAMESPACE
-                    sudo kubectl rollout status deployment/frontend-deployment -n $KUBE_NAMESPACE
-                    sudo kubectl rollout status deployment/mongo-deployment -n $KUBE_NAMESPACE
+                    kubectl rollout status deployment/backend-deployment -n $KUBE_NAMESPACE
+                    kubectl rollout status deployment/frontend-deployment -n $KUBE_NAMESPACE
+                    kubectl rollout status deployment/mongo-deployment -n $KUBE_NAMESPACE
 
                     echo "Deployment Successful!"
                 '''
