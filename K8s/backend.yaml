@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: arvindh01/backend-taskify:latest
+          image: arvindh01/k8s-backend-taskify:latest
           ports:
             - containerPort: 8000
           volumeMounts:
@@ -44,4 +44,5 @@ spec:
       protocol: TCP
 
       nodePort: 31100
+
 
