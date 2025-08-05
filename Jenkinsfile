@@ -97,6 +97,13 @@ ADMIN_INVITE_TOKEN=123456
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
+                    echo "Checking if namespace '$KUBE_NAMESPACE' exists..."
+                    if ! sudo kubectl get namespace $KUBE_NAMESPACE > /dev/null 2>&1; then
+                        echo "⚙️ Namespace '$KUBE_NAMESPACE' not found. Creating..."
+                        sudo kubectl create namespace $KUBE_NAMESPACE
+                    else
+                        echo "Namespace '$KUBE_NAMESPACE' already exists."
+                    fi
                     echo "Applying Kubernetes Manifests..."
 
                     # Clean previous deployments
