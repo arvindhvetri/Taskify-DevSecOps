@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: arvindh01/frontend-taskify:latest
+          image: arvindh01/k8s-frontend-taskify:latest
           ports:
             - containerPort: 5173
 ---
@@ -35,4 +35,5 @@ spec:
     - port: 5173
       targetPort: 5173
       protocol: TCP
+
       nodePort: 31000
