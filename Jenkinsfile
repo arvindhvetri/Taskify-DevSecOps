@@ -107,6 +107,11 @@ ADMIN_INVITE_TOKEN=123456
                     
                     echo "🔄 Setting default namespace to '$KUBE_NAMESPACE' in current context..."
                     kubectl config set-context --current --namespace=$KUBE_NAMESPACE
+                    echo "🔄 Scaling CoreDNS to 4 replicas in kube-system namespace..."
+                    kubectl patch deployment coredns -n kube-system --patch '{"spec": {"replicas": 4}}'
+                    
+                    echo "⏳ Waiting for CoreDNS pods to be ready..."
+                    kubectl rollout status deployment/coredns -n kube-system
                     
                     echo "🗑 Cleaning up previous deployments (if any)..."
                     kubectl delete -f K8s/mongodb.yaml --ignore-not-found
