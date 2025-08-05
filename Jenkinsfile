@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'Tasky-Build-Master' }
+    agent { label 'Taskify-Agent' }
 
     environment {
         SONAR_HOME = tool "Sonar"
