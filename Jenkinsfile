@@ -5,6 +5,7 @@ pipeline {
         SONAR_HOME = tool "Sonar"
         BACKEND_IMAGE = 'arvindh01/k8s-backend-taskify:latest'
         FRONTEND_IMAGE = 'arvindh01/k8s-frontend-taskify:latest'
+        MONGODB_IMAGE = 'arvindh01/k8s-mongo-taskify:6.0'
         KUBE_NAMESPACE = 'taskify'
         WORKER_NODE_IP = '52.14.18.176' // k8s slave machine ip
     }
@@ -78,17 +79,24 @@ ADMIN_INVITE_TOKEN=123456
                         echo "Removing old images if exist..."
                         docker rmi -f $BACKEND_IMAGE || true
                         docker rmi -f $FRONTEND_IMAGE || true
-
+                        docker rmi -f $MONGODB_IMAGE || true
+                        
                         echo "Building Backend Image..."
                         docker build -t $BACKEND_IMAGE ./backend
-
+                        
                         echo "Building Frontend Image..."
                         docker build -t $FRONTEND_IMAGE ./frontend/Task-Manager
-
+                        
+                        echo "Tagging MongoDB 6.0 Image for Custom Use..."
+                        docker pull mongo:6.0
+                        docker tag mongo:6.0 $MONGODB_IMAGE
+                        
                         echo "Pushing Images to Docker Hub..."
                         echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
                         docker push $BACKEND_IMAGE
                         docker push $FRONTEND_IMAGE
+                        docker push $MONGODB_IMAGE
+
                     '''
                 }
             }
