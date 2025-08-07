@@ -72,62 +72,46 @@ Make sure the following are installed:
 - **Git**
 
 ---
-
-### 📦 Installation
-
-#### 1. Clone the Repository
-
+### 🔍 SonarQube Setup
+Run SonarQube
 ```bash
-git clone https://github.com/your-username/task-manager.git
-cd task-manager
+docker run -itd --name sonarqube-server -p 9000:9000 sonarqube:lts-community
 ```
+Visit: `http://<agent-ip>:9000`
+- Username: admin
+- Password: admin
+- Change password & generate token
 
-#### 2. Install Backend Dependencies
+### Jenkins Integration:
+Plugins:
+- SonarQube Scanner
+- Sonar Quality Gates
+- OWASP Dependency-Check
+- Docker
+Go to Jenkins -> Manage Jenkins -> System:
+- Add SonarQube server
+  - Name: Sonar
+  - URL: `http://<agent-ip>:9000`
+  - Auth Token: add secret text using generated token
+Go to Jenkins -> Tools:
+- SonarQube Scanner: Name: Sonar, Version: latest
+- Dependency-Check: Name: Depcheck, enable auto-install
 
+### 🔐 Trivy Setup (Security Scanning)
 ```bash
-cd backend
-npm install
+sudo apt-get install wget apt-transport-https gnupg lsb-release
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
 ```
+### 🧪 Pipeline Configuration
+- Pipeline Description: CI/CD DevSecOps for Taskify
+- GitHub Project: `<Your-Repo-Link>`
+- Enable Throttle Builds
+- Advanced: Display name: Taskify Docker CICD
 
-#### 3. Install Frontend Dependencies
-
-```bash
-cd frontend
-npm install
-```
-
----
-
-### ⚙️ Configuration
-
-#### Create a .env file inside the backend directory with the following:
-
-```bash
-PORT=8000
-MONGO_URI=< your_mongodb_connection_string >
-JWT_SECRET=< your_super_secret_key >
-ADMIN_INVITE_TOKEN=4588944
-```
-Replace your_mongodb_connection_string with your MongoDB URI
-Example: mongodb://localhost:27017/taskmanager or MongoDB Atlas URI
-
----
-
-### ▶️ Running the Application
-
-#### Start the Backend Server
-
-```bash
-cd backend
-npm start
-```
-
-#### Start the Frontend Client
-
-```bash
-cd frontend
-npm start
-```
+✅ Now you're all set to run your full DevSecOps CI/CD pipeline for Taskify!
 
 ---
 
