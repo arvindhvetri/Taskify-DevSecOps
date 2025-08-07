@@ -110,7 +110,7 @@ ansible-playbook task.yaml --syntax-check -i inventory.ini
 ansible-playbook task.yaml -i inventory.ini
 ```
 
-🚀 This sets up the foundational infrastructure and configuration for the Taskify DevSecOps project.
+This sets up the foundational infrastructure and configuration for the Taskify DevSecOps project.
 
 ---
 
@@ -143,6 +143,7 @@ sudo su
 <paste the join command here> --v=5
 ```
 
+## 🧰 Docker + Jenkins Setup
 ### 🐳 Docker Setup (On Master Node):
 ```bash
 sudo apt install docker.io -y
@@ -150,3 +151,16 @@ sudo chmod 777 /var/run/docker.sock
 sudo usermod -aG docker $USER
 newgrp docker
 ```
+### 🚰 Jenkins Agent Configuration:
+- Name: Taskify-Agent
+- Description: Ubuntu machine agent for Taskify
+- Remote root dir: `/home/ubuntu/`
+- Label: `Taskify-Agent`
+- Launch via SSH:
+  - Host: `agent private IP`
+  - Credentials:
+    - Kind: SSH username with private key
+    - ID: agentkey
+    - Username: `ubuntu`
+    - Private Key: content of `tasky-key` in `keys/`
+- Host key verification: Non-verifying
