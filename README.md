@@ -111,3 +111,42 @@ ansible-playbook task.yaml -i inventory.ini
 ```
 
 🚀 This sets up the foundational infrastructure and configuration for the Taskify DevSecOps project.
+
+---
+
+## 🚀 Kubernetes Cluster Setup
+
+### 🔧 On Kubernetes Master Node Only:
+```bash
+sudo kubeadm config images pull
+sudo kubeadm init
+```
+Configure kubeconfig for kubectl:
+```bash
+mkdir -p "$HOME"/.kube
+sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config
+sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
+```
+Install Calico network plugin:
+```bash
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml
+```
+Generate the join command:
+```bash
+kubeadm token create --print-join-command
+```
+
+### 🔗 On Worker Node:
+Run as root:
+```bash
+sudo su
+<paste the join command here> --v=5
+```
+
+### 🐳 Docker Setup (On Master Node):
+```bash
+sudo apt install docker.io -y
+sudo chmod 777 /var/run/docker.sock
+sudo usermod -aG docker $USER
+newgrp docker
+```
