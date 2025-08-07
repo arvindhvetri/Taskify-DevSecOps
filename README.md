@@ -74,7 +74,7 @@ terraform plan
 terraform apply
 ```
 
-# ✅ Step 6: Generate SSH Key for Ansible.
+### ✅ Step 6: Generate SSH Key for Ansible.
 If not already generated, create a key for Ansible:
 ```bash
 cd ~/.ssh
@@ -82,7 +82,7 @@ ssh-keygen
 ```
 Copy the content of id_rsa.pub to the authorized_keys file of both the created EC2 instances (K8s Master and Slave nodes).
 
-# ✅ Step 7: Configure Ansible.
+### ✅ Step 7: Configure Ansible.
 1. Copy the task.yaml file to /etc/ansible/:
 ```bash
 sudo cp task.yaml /etc/ansible/
@@ -103,7 +103,7 @@ sudo cp task.yaml /etc/ansible/
 
 Add appropriate Ansible playbook or setup commands to each.
 
-# ✅ Step 8: Run Ansible Commands.
+### ✅ Step 8: Run Ansible Commands.
 ```bash
 ansible all -m ping -i inventory.ini
 ansible-playbook task.yaml --syntax-check -i inventory.ini
