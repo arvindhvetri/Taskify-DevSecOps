@@ -49,29 +49,29 @@ Sidebar with simple routing to dashboard, tasks, reports, and settings.
 
 ---
 
+## WorkFlow
+<img width="1920" height="1080" alt="Workflow1" src="https://github.com/user-attachments/assets/6efc10b3-e9ee-421b-82b8-adcde84407d0" />
+
+
+---
+
 ## 🛠️ Technologies Used
 
-| Stack       | Technology                       |
-|-------------|----------------------------------|
-| **Frontend**| React.js, CSS/Bootstrap          |
-| **Backend** | Node.js, Express.js              |
-| **Database**| MongoDB with Mongoose            |
-| **Auth**    | JWT for secure login/session     |
-| **Extras**  | Multer (for file uploads), dotenv|
+| Stack                  | Technology                                       |
+| ---------------------- | ------------------------------------------------ |
+| **Frontend**           | React.js ⚛️, CSS 🎨 / Bootstrap 🎀               |
+| **Backend**            | Node.js 🌐, Express.js 🚀                        |
+| **Database**           | MongoDB 🍃                        |
+| **Auth**               | JWT 🔐 for secure login/session                  |
+| **Extras**             | Multer 📦 (file uploads), dotenv 🛠️ (env vars)  |
+| **Security & Quality** | OWASP 🛡️, SonarQube 📊, Trivy 🔍                |
+| **CI/CD & DevOps**     | Jenkins 🤖, Docker 🐳, Docker Compose ⚙️, AWS ☁️ |
+
 
 ---
 
 ## 🚀 Getting Started
 
-### ✅ Prerequisites
-
-Make sure the following are installed:
-
-- **Node.js** (LTS version)
-- **MongoDB** (local or Atlas cloud)
-- **Git**
-
----
 ### 🔍 SonarQube Setup
 Run SonarQube
 ```bash
@@ -123,7 +123,3 @@ sudo apt-get install trivy
 - 🤝 Collaboration: Invite and manage team members.
 - 📊 Reports: Export your tasks and progress for reports.
 
----
-
-### 🚀 Output
-[Taskify.pdf](https://github.com/user-attachments/files/20648733/Taskify.pdf)
