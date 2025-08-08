@@ -47,8 +47,6 @@ Enjoy a seamless experience on desktop, tablet, or mobile devices.
 ### 🧭 Clean Navigation  
 Sidebar with simple routing to dashboard, tasks, reports, and settings.
 
----
-
 ## WorkFlow
 
 <img width="1920" height="1080" alt="Workflow 2" src="https://github.com/user-attachments/assets/e42a7912-b53a-4ca9-a1b8-3cba3e76e618" />
