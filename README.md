@@ -1,4 +1,4 @@
-# 🚀 Taskify – Your Smart Task Management Companion
+<img width="1920" height="1080" alt="Workflow 2" src="https://github.com/user-attachments/assets/850f25d3-0395-4e9f-aa06-f4d92e8ec4c8" /># 🚀 Taskify – Your Smart Task Management Companion
 
 ![MERN Stack](https://img.shields.io/badge/Stack-MERN-informational?style=flat-square&logo=mongodb&logoColor=white&color=4DB33D)
 ![Responsive](https://img.shields.io/badge/UI-Mobile%20Responsive-blueviolet?style=flat-square)
@@ -49,85 +49,77 @@ Sidebar with simple routing to dashboard, tasks, reports, and settings.
 
 ---
 
+## WorkFlow
+
+<img width="1920" height="1080" alt="Workflow 2" src="https://github.com/user-attachments/assets/e42a7912-b53a-4ca9-a1b8-3cba3e76e618" />
+
+---
+
 ## 🛠️ Technologies Used
 
-| Stack       | Technology                       |
-|-------------|----------------------------------|
-| **Frontend**| React.js, CSS/Bootstrap          |
-| **Backend** | Node.js, Express.js              |
-| **Database**| MongoDB with Mongoose            |
-| **Auth**    | JWT for secure login/session     |
-| **Extras**  | Multer (for file uploads), dotenv|
+| Stack                  | Technology                                       |
+| ---------------------- | ------------------------------------------------ |
+| **Frontend**           | React.js ⚛️, CSS 🎨 / Bootstrap 🎀               |
+| **Backend**            | Node.js 🌐, Express.js 🚀                        |
+| **Database**           | MongoDB 🍃                        |
+| **Auth**               | JWT 🔐 for secure login/session                  |
+| **Extras**             | Multer 📦 (file uploads), dotenv 🛠️ (env vars)  |
+| **Security & Quality** | OWASP 🛡️, SonarQube 📊, Trivy 🔍                |
+| **CI/CD & DevOps**     | Jenkins 🤖, Docker 🐳, Kubernetes ⚙️, AWS ☁️ |
+
 
 ---
 
 ## 🚀 Getting Started
 
-### ✅ Prerequisites
-
-Make sure the following are installed:
-
-- **Node.js** (LTS version)
-- **MongoDB** (local or Atlas cloud)
-- **Git**
-
----
-
-### 📦 Installation
-
-#### 1. Clone the Repository
-
+### In K8s Worker Node:
+#### 🔍 SonarQube Setup
+Run SonarQube
 ```bash
-git clone https://github.com/your-username/task-manager.git
-cd task-manager
+docker run -itd --name sonarqube-server -p 9000:9000 sonarqube:lts-community
+```
+Visit: `http://<agent-ip>:9000`
+- Username: admin
+- Password: admin
+- Change password & generate token
+
+#### Jenkins Integration:
+Plugins:
+- SonarQube Scanner
+- Sonar Quality Gates
+- OWASP Dependency-Check
+- Docker
+Go to Jenkins -> Manage Jenkins -> System:
+- Add SonarQube server
+  - Name: Sonar
+  - URL: `http://<agent-ip>:9000`
+  - Auth Token: add secret text using generated token
+Go to Jenkins -> Tools:
+- SonarQube Scanner: Name: Sonar, Version: latest
+- Dependency-Check: Name: Depcheck, enable auto-install
+
+#### 🔐 Trivy Setup (Security Scanning)
+```bash
+sudo apt-get install wget apt-transport-https gnupg lsb-release
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
 ```
 
-#### 2. Install Backend Dependencies
-
+### In K8s Worker Node:
 ```bash
-cd backend
-npm install
+sudo mkdir -p /data/uploads
+sudo chmod 777 /data/uploads
 ```
 
-#### 3. Install Frontend Dependencies
+#### 🧪 Pipeline Configuration
+- Pipeline Description: CI/CD DevSecOps for Taskify
+- GitHub Project: `<Your-Repo-Link>`
+- Enable Throttle Builds
+- Advanced: Display name: Taskify Docker CICD
 
-```bash
-cd frontend
-npm install
-```
-
----
-
-### ⚙️ Configuration
-
-#### Create a .env file inside the backend directory with the following:
-
-```bash
-PORT=8000
-MONGO_URI=< your_mongodb_connection_string >
-JWT_SECRET=< your_super_secret_key >
-ADMIN_INVITE_TOKEN=4588944
-```
-Replace your_mongodb_connection_string with your MongoDB URI
-Example: mongodb://localhost:27017/taskmanager or MongoDB Atlas URI
-
----
-
-### ▶️ Running the Application
-
-#### Start the Backend Server
-
-```bash
-cd backend
-npm start
-```
-
-#### Start the Frontend Client
-
-```bash
-cd frontend
-npm start
-```
+✅ Now you're all set to run your full DevSecOps CI/CD pipeline for Taskify!
 
 ---
 
@@ -138,8 +130,3 @@ npm start
 - ✍️ Task Management: Create new tasks, assign users, and update task status.
 - 🤝 Collaboration: Invite and manage team members.
 - 📊 Reports: Export your tasks and progress for reports.
-
----
-
-### 🚀 Output
-[Taskify.pdf](https://github.com/user-attachments/files/20648733/Taskify.pdf)
