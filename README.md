@@ -1,5 +1,3 @@
-<img width="1920" height="1080" alt="Workflow 2" src="https://github.com/user-attachments/assets/850f25d3-0395-4e9f-aa06-f4d92e8ec4c8" /># 🚀 Taskify – Your Smart Task Management Companion
-
 ![MERN Stack](https://img.shields.io/badge/Stack-MERN-informational?style=flat-square&logo=mongodb&logoColor=white&color=4DB33D)
 ![Responsive](https://img.shields.io/badge/UI-Mobile%20Responsive-blueviolet?style=flat-square)
 
@@ -46,6 +44,8 @@ Enjoy a seamless experience on desktop, tablet, or mobile devices.
 
 ### 🧭 Clean Navigation  
 Sidebar with simple routing to dashboard, tasks, reports, and settings.
+
+---
 
 ## WorkFlow
 
