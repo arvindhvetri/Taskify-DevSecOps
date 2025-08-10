@@ -123,3 +123,21 @@ sudo apt-get install trivy
 - 🤝 Collaboration: Invite and manage team members.
 - 📊 Reports: Export your tasks and progress for reports.
 
+---
+
+### 📸 Screenshots
+![CICD Pipeline](https://github.com/user-attachments/assets/8856e305-1161-4c4b-a62b-32b2644d780d)
+
+![SonarQubeCheck](https://github.com/user-attachments/assets/b3095b6b-b791-4e21-baf2-c24f1cbf2fd5)
+
+![AdminPanel](https://github.com/user-attachments/assets/f8e70bac-7567-4438-a34a-49cad0ecc340)
+
+---
+
+### 📬 Contact
+
+Created with ❤️ by Arvindh Kumar
+
+- 📧 Email: arvindhvetri@gmail.com
+
+
